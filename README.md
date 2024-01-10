@@ -431,7 +431,8 @@ capabilities = dict(
     locale='US'
 )
 
-appium_server_url = 'http://localhost:4723/wd/hub' -> baseUrl needs /wd/hub/
+#baseUrl needs /wd/hub/
+appium_server_url = 'http://localhost:4723/wd/hub'
 #appium_server_url = 'http:127.0.0.1:4723'
 
 class TestAppium(unittest.TestCase):
