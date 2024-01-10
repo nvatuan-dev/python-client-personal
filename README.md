@@ -415,6 +415,9 @@ $ ./release.sh # release
 ```
 
 ## For personal usage only
+```bash
+python test.py
+```
 ```python
 import unittest
 from appium import webdriver
