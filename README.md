@@ -414,6 +414,50 @@ $ DRY_RUN=1 ./release.sh
 $ ./release.sh # release
 ```
 
+## For personal usage only
+```python
+import unittest
+from appium import webdriver
+from appium.options.android import UiAutomator2Options
+from appium.webdriver.common.appiumby import AppiumBy
+
+capabilities = dict(
+    platformName='Android',
+    automationName='UiAutomator2',
+    deviceName='emulator-5554',
+    appPackage='com.android.settings',
+    appActivity='.Settings',
+    language='en',
+    locale='US'
+)
+
+appium_server_url = 'http://localhost:4723/wd/hub' -> baseUrl needs /wd/hub/
+#appium_server_url = 'http:127.0.0.1:4723'
+
+class TestAppium(unittest.TestCase):
+    def setUp(self) -> None:
+        self.driver = webdriver.Remote(appium_server_url, options=UiAutomator2Options().load_capabilities(capabilities))
+
+    def tearDown(self) -> None:
+        if self.driver:
+            self.driver.quit()
+
+    def test_find_battery(self) -> None:
+        el = self.driver.find_element(by=AppiumBy.XPATH, value='//*[@text="Battery"]')
+        #el = self.driver.find_element(by=AppiumBy.XPATH, value='//android.widget.TextView[@content-desc="Phone"]')
+        el.click()
+
+if __name__ == '__main__':
+    unittest.main()
+```
+Server Command Line Inerface:
+```bash
+# Start the server on the given host, port and use a custom base path prefix (the default prefix is '/')
+# Port will be replaced by port in python test code above
+appium --address 127.0.0.1 --port 4723 --base-path /wd/hub
+```
+Appium supports execution of parallel server processes, as well as parallel driver sessions within a single server process. Refer the corresponding driver documentations regarding which mode is optimal for the particular driver or whether it supports parallel sessions.
+
 ## License
 
 Apache License v2
