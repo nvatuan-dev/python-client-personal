@@ -419,6 +419,7 @@ $ ./release.sh # release
 python test.py
 ```
 ```python
+#test.py
 import unittest
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
